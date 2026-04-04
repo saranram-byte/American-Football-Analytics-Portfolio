@@ -18,7 +18,7 @@ combining data analysis, visualization, and predictive modeling.
 ---
 
 ## Tools & Skills
-R · nflfastR · cfbfastR · tidymodels · ggplot2 · SQL · Python · Tableau
+R · nflreadR · cfbfastR · tidymodels · ggplot2 · SQL · Python · Tableau
 
 ---
 
