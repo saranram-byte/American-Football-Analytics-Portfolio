@@ -2,7 +2,7 @@
 # WR Combine & Draft Capital Study — Part 1
 # Historical EDA: Athleticism vs Draft Capital
 # Data: nflreadr combine data, 2010-2026
-# Author: [Saran Ram]
+# Author: Saran Ram
 # Date: April 2026
 # ============================================
 
@@ -82,6 +82,33 @@ wr_clean <- combine_raw |>
            ht_inches = feet + inches
          })) |>
   select(player_name,season,school, draft_status, draft_round_clean, draft_ovr_clean, ht_inches, wt, cone, shuttle, forty, vertical, broad_jump)
+
+
+
+# Addition of feature engineered variables for future analysis
+
+wr_clean <- combine_raw |>
+  filter(pos == "WR", season >= 2010) |>
+  mutate( ht_inches = map_dbl(ht, function(x) {
+    parts <- str_split(x, "-")[[1]]
+    feet = as.numeric(parts[1]) * 12
+    inches = as.numeric(parts[2])
+    ht_inches = feet + inches
+  }),draft_status = if_else(is.na(draft_round),"UDFA", "DRAFTED"),
+         draft_round_clean = if_else(is.na(draft_round), "UDFA", as.character(draft_round)),
+         draft_ovr_clean = if_else(is.na(draft_ovr), 999, draft_ovr),
+         speed_score = (wt*200) / (forty^4),
+         explosion_index = vertical + broad_jump,
+         bmi = (wt / (ht_inches ^ 2)) * 703
+        ) |>
+  select(player_name,season,school, draft_status, draft_round_clean, draft_ovr_clean, ht_inches, wt, cone, shuttle, forty, vertical, broad_jump, speed_score, explosion_index, bmi)
+
+
+# Verify the feature engineered metrics work
+wr_clean |> 
+  select(player_name, forty, wt, ht_inches, speed_score, explosion_index, bmi) |> 
+  head(10)
+
 
 # Final glimpse to check
 glimpse(wr_clean)
