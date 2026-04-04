@@ -17,7 +17,7 @@ means for the 2026 NFL Draft class and possible shifts in philosophy
 - College production via `cfbfastR`
 
 ## Key Questions
-- Does 40 time actually predict where WRs get drafted?
+- Does a 40 time actually predict where WRs get drafted?
 - Which athletic profiles historically produce Day 1/2 picks?
 - What does the model say about the 2026 WR class?
 
