@@ -1,6 +1,5 @@
 # WR Combine & Draft Capital Study
-### "Is paying for WR talent becoming obsolete when the draft
-can find you the same production for pennies?"
+### "Is paying for WR talent becoming obsolete when the draft can find you the same production for pennies?"
 
 ---
 
