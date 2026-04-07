@@ -2,11 +2,19 @@
 # WR Combine & Draft Capital Study — Part 1
 # Historical EDA: Athleticism vs Draft Capital
 # Data: nflreadr combine data, 2010-2026
-# Author: Saran Ram
+# Author: [Saran Ram]
 # Date: April 2026
 # ============================================
 
 # install.packages(c("nflreadr", "tidyverse", "ggplot2", "janitor"))
+
+
+#install.packages("showtext")
+library(showtext)
+font_add_google("Inter", "inter")
+showtext_auto()
+showtext_opts(dpi = 300)
+
 
 library(nflreadr)
 library(tidyverse)
@@ -112,5 +120,102 @@ wr_clean |>
 
 # Final glimpse to check
 glimpse(wr_clean)
-         
-  
+
+
+## VIZ BUILDER
+
+# Signature Colors
+base_dark <- "#2b2d42"    # charcoal - primary bars
+base_light <- "#f8f9fa"   # off white - background
+wr_accent <- "#06d6a0"    # mint green - WR series accent
+wr_gray <- "#6c757d"      # gray - subtitle/caption text
+
+
+theme_football <- function() {
+  theme_minimal(base_family = "inter") +
+    theme(
+      # Background
+      plot.background = element_rect(fill = wr_light, color = NA),
+      panel.background = element_rect(fill = wr_light, color = NA),
+      
+      # Title styling
+      plot.title = element_text(
+        face = "bold", size = 16, color = wr_blue,
+        margin = margin(b = 6)
+      ),
+      plot.subtitle = element_text(
+        size = 11, color = wr_gray,
+        margin = margin(b = 15)
+      ),
+      plot.caption = element_text(
+        size = 8, color = wr_gray,
+        hjust = 1, margin = margin(t = 10)
+      ),
+      
+      # Axis styling
+      axis.title.x = element_text(
+        face = "bold", size = 10, color = wr_blue,
+        margin = margin(t = 12)
+      ),
+      axis.title.y = element_text(
+        face = "bold", size = 10, color = wr_blue,
+        margin = margin(r = 12)
+      ),
+      axis.text = element_text(size = 9, color = wr_gray),
+      
+      # Grid lines - horizontal only, very subtle
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.grid.major.y = element_line(color = "#e0e0e0", linewidth = 0.4),
+      
+      # Plot margins
+      plot.margin = margin(20, 20, 20, 20)
+    )
+}
+
+
+
+
+# DRAFT ROUND DISTRIBUTION PLOT #
+
+
+wr_clean |>
+  filter(season >= 2010, season <= 2024) |>
+  mutate(
+    draft_round_clean = factor(draft_round_clean,
+                               levels = c("1","2","3","4","5","6","7","UDFA")),
+    is_udfa = draft_round_clean == "UDFA"
+  ) |>
+  ggplot(aes(x = draft_round_clean, fill = is_udfa)) +
+  geom_bar() +
+  scale_fill_manual(
+    values = c("FALSE" = wr_blue, "TRUE" = wr_green),
+    guide = "none"
+  ) +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    vjust = 1.5,
+    color = "white",
+    fontface = "bold",
+    size = 4.5
+  ) +
+  labs(
+    title = "WR Draft Round Distribution (2010-2024)",
+    subtitle = "Does the combine create hype that distorts draft decisions?",
+    caption = "Data: nflreadr | 2010-2024 NFL Combine",
+    x = "Draft Round Selected",
+    y = "Player Count"
+  ) +
+  theme_football() +
+  annotate("segment",
+           x = -Inf, xend = Inf,
+           y = -Inf, yend = -Inf,
+           color = wr_green, linewidth = 3)
+
+# PNG SAVE
+showtext_opts(dpi = 300)
+ggsave("chart1_draft_distribution.png",
+       width = 10, height = 6, dpi = 300,
+       bg = base_light)
+
