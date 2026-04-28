@@ -517,11 +517,11 @@ wr_clean |>
 
 
 # Final Feature Set for Modeling:
-# speed_score — best single predictor (R = -0.253)
-# explosion_adjusted — original engineered feature, weight-normalized explosion
-# ht_inches — independent size signal, near complete data
-# Dropped: forty (redundant with speed_score), cone/shuttle (40%+ missing),
-# explosion_index/vertical/broad_jump (redundant with explosion_adjusted),
-# bmi/wt (near zero correlation or captured elsewhere)
+# speed_score: best single predictor (R = -0.253)
+# explosion_adjusted: original engineered feature, weight-normalized explosion
+# ht_inches:  independent size signal, near complete data
+# Dropped:forty (redundant with speed_score), cone/shuttle (40%+ missing),
+# explosion_index/vertical/broad_jump: (redundant with explosion_adjusted),
+# bmi/wt: (near zero correlation or captured elsewhere)
 
 
