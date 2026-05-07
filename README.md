@@ -1,7 +1,7 @@
 # Football Analytics Portfolio (Saran Ram)
 
 Current graduate student at the University of Maryland (MPS GEM Program)
-Current Football Applied Sports Science Intern @ UMD. 
+Football Applied Sports Science/Data Analytics background
 Building public football data analytics projects using nflfastR, cfbfastR, with R.
 
 This repo documents my work across NFL and college football — 
