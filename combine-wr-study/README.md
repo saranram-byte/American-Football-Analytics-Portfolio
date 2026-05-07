@@ -35,14 +35,14 @@ went completely undrafted before signing with the Kansas City Chiefs.
 
 | Part | Question | Status |
 |---|---|---|
-| 1 — Historical EDA | Do combine metrics correlate with draft position? | ✅ Complete |
-| 2a — Model Validation | How well did combine data predict the 2025 draft? | ✅ Complete |
-| 2b — 2026 Projections | Where does the model project the 2026 WR class? | ✅ Complete |
-| 2c — 2025 Retrospective | How did the model perform on the 2025 WR class? | ✅ Complete |
-| 3 — Outcome Prediction | Can combine profiles predict NFL outcome tiers? | 📋 Planned |
-| 4 — Scouting Profiles | What does the full picture say about key 2026 prospects? | 📋 Planned |
-| 5 — Mid-Season Check-in | Are early trends matching predictions? (November 2026) | 📋 Planned |
-| 6 — Full Retrospective | Combine profiles vs actual outcomes (February 2027) | 📋 Planned |
+| 1 — Historical EDA | Do combine metrics correlate with draft position? | Complete |
+| 2a — Model Validation | How well did combine data predict the 2025 draft? | Complete |
+| 2b — 2026 Projections | Where does the model project the 2026 WR class? | Complete |
+| 2c — 2025 Retrospective | How did the model perform on the 2025 WR class? | Complete |
+| 3 — Outcome Prediction | Can combine profiles predict NFL outcome tiers? | Planned |
+| 4 — Scouting Profiles | What does the full picture say about key 2026 prospects? | Planned |
+| 5 — Mid-Season Check-in | Are early trends matching predictions? (~ November 2026) | Planned |
+| 6 — Full Retrospective | Combine profiles vs actual outcomes (~ February 2027) | Planned |
 
 ---
 
