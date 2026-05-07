@@ -11,11 +11,12 @@ hype that distorts draft decisions? And can combine profiles
 historically predict not just where WRs get drafted — but how
 good they actually become?
 
-The 2026 NFL Draft brought this question into sharp focus:
-the 49ers publicly credited AI for drafting De'Zhaun Stribling
-33rd overall while the model's #1 ranked WR athletically —
-Jeff Caldwell — went completely undrafted and signed with
-the Kansas City Chiefs.
+The 2026 NFL Draft put this question center stage.
+The 49ers credited AI in their draft process, then used
+a Day 2 pick on De'Zhaun Stribling at 33 overall, a selection
+widely criticized as a reach. At the same time, Jeff Caldwell,
+the most athletically gifted WR in the class by combine data,
+went completely undrafted before signing with the Kansas City Chiefs.
 
 ---
 
