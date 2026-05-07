@@ -29,6 +29,31 @@ went completely undrafted before signing with the Kansas City Chiefs.
 - The same pattern held in 2025 — model's #1 ranked WR (Joshua Lane) also went undrafted
 - The 49ers used AI to justify drafting Stribling 33rd — the model ranked him 4th athletically in the class
 
+
+## Key Visualizations
+
+### EDA: Does the combine predict draft position?
+![Draft Round Distribution](outputs/chart1_draft_distribution.png)
+
+![40 Time by Draft Round](outputs/chart2_forty_by_round.png)
+
+![Speed Score by Draft Round](outputs/chart3_speed_score_by_round.png)
+
+![Weight-Adjusted Explosion by Draft Round](outputs/chart4b_explosion_adjusted_by_round.png)
+
+![Correlation Heatmap](outputs/chart5_correlation_heatmap.png)
+
+### Draft Boards: Athletic profiles vs reality
+![2025 WR Draft Board](outputs/chart7b_draft_board_2025.png)
+
+![2026 WR Draft Board](outputs/chart7_draft_board_2026.png)
+
+
+
+
+
+
+
 ---
 
 ## Series Structure
