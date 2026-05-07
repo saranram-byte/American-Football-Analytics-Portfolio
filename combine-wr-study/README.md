@@ -1,6 +1,6 @@
 # WR Combine & Draft Capital Study
 ### "Is paying for WR talent becoming obsolete when the draft can find you the same production for pennies?"
-#### And does the combine actually help teams find that talent — or create hype that obscures it?
+#### And does the combine actually help teams find that talent, or create hype that obscures it?
 
 ---
 
