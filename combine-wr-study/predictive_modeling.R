@@ -297,9 +297,9 @@ wr_rankings_2026 <- predictions_2026_clean |>
     gap = actual_pick - .pred,
     result = case_when(
       actual_pick == 999 ~ "Undrafted",
-      actual_pick <= 100 ~ "Day 1/2 Pick",
-      actual_pick <= 200 ~ "Day 3 Pick",
-      TRUE ~ "Late Round"
+      actual_pick <= 32 ~ "Round 1",
+      actual_pick <= 105 ~ "Rounds 2-3",
+      TRUE ~ "Rounds 4-7"
     )
   ) |>
   # Add UDFA team info
@@ -327,14 +327,17 @@ wr_rankings_2026 |>
 # Draft Board Table
 # ============================================
 
-draft_board_table <- wr_rankings_2026 |>
+draft_board_table_2026 <- wr_rankings_2026 |>
   select(model_rank, player_name, actual_pick, result, udfa_team) |>
   arrange(model_rank) |>
   mutate(
-    actual_pick = ifelse(is.na(actual_pick), "UDFA", as.character(actual_pick))
+    actual_pick = case_when(
+      actual_pick == 999 ~ "--",
+      TRUE ~ as.character(actual_pick)
+    )
   )
 
-draft_board_table |>
+draft_board_table_2026 |>
   gt() |>
   cols_label(
     model_rank = "Model Rank",
@@ -383,7 +386,7 @@ draft_board_table |>
   ) |>
   tab_header(
     title = md("**2026 WR Draft Board — Model Rankings vs Reality**"),
-    subtitle = "Ranked by athletic profile. Does draft capital follow the data?"
+    subtitle = "Athletic profiles don't guarantee success. They guarantee opportunity."
   ) |>
   tab_options(
     table.border.top.color = base_dark,
@@ -402,3 +405,126 @@ draft_board_table |>
     heading.padding = px(10)
   ) |>
   gtsave("chart7_draft_board_2026.png")
+
+
+
+# 2025 Draft Board Ranking Build
+
+draft_2025 <- load_draft_picks(seasons = 2025)
+
+wr_draft_2025 <- draft_2025 |>
+  filter(position == "WR") |>
+  select(pfr_player_name, round, pick)
+
+
+predictions_2025_clean <- predictions_2025 |>
+  mutate(name_clean = clean_player_names(player_name))
+
+draft_2025_clean <- wr_draft_2025 |>
+  mutate(name_clean = clean_player_names(pfr_player_name))
+
+wr_rankings_2025 <- predictions_2025_clean |>
+  mutate(model_rank = rank(.pred, ties.method = "first")) |>
+  left_join(draft_2025_clean, by = "name_clean") |>
+  mutate(
+    actual_pick = case_when(
+      is.na(pick) ~ 999,
+      TRUE ~ as.numeric(pick)
+    ),
+    result = case_when(
+      actual_pick == 999 ~ "Undrafted",
+      actual_pick <= 32 ~ "Round 1",
+      actual_pick <= 105 ~ "Rounds 2-3",
+      TRUE ~ "Rounds 4-7"
+    ),
+    udfa_team = if_else(actual_pick != 999, "Drafted", "UDFA")
+  ) |>
+  arrange(model_rank)
+
+wr_rankings_2025 |>
+  select(player_name, model_rank, actual_pick, result, udfa_team) |>
+  print(n = Inf)
+
+
+
+
+
+
+draft_board_table_2025 <- wr_rankings_2025 |>
+  select(model_rank, player_name, actual_pick, result, udfa_team) |>
+  arrange(model_rank) |>
+  mutate(
+    actual_pick = case_when(
+      actual_pick == 999 ~ "--",
+      TRUE ~ as.character(actual_pick)
+    )
+  )
+
+draft_board_table_2025 |>
+  gt() |>
+  cols_label(
+    model_rank = "Model Rank",
+    player_name = "Player",
+    actual_pick = "Actual Pick",
+    result = "Draft Result",
+    udfa_team = "Team/Status"
+  ) |>
+  opt_table_font(font = "Arial") |>
+  tab_style(
+    style = cell_borders(
+      sides = "all",
+      color = "#d0d0d0",
+      weight = px(1)
+    ),
+    locations = cells_body()
+  ) |>
+  tab_style(
+    style = cell_borders(
+      sides = "all",
+      color = base_dark,
+      weight = px(1.5)
+    ),
+    locations = cells_column_labels()
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = wr_accent, alpha = 0.25),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(rows = result == "Undrafted")
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#e63946", alpha = 0.2),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(rows = player_name == "Jayden Higgins")
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = base_dark),
+      cell_text(color = "white", weight = "bold")
+    ),
+    locations = cells_column_labels()
+  ) |>
+  tab_header(
+    title = md("**2025 WR Draft Board — Model Rankings vs Reality**"),
+    subtitle = "Athletic profiles don't guarantee success. They guarantee opportunity."
+  ) |>
+  tab_options(
+    table.border.top.color = base_dark,
+    table.border.bottom.color = base_dark,
+    column_labels.border.bottom.color = base_dark,
+    row.striping.include_table_body = FALSE,
+    table.background.color = base_light,
+    heading.background.color = base_light,
+    table.font.size = px(13),
+    heading.title.font.size = px(17),
+    heading.title.font.weight = "bold",
+    heading.subtitle.font.size = px(12),
+    column_labels.font.size = px(12),
+    data_row.padding = px(7),
+    column_labels.padding = px(9),
+    heading.padding = px(10)
+  ) |>
+  gtsave("chart7b_draft_board_2025.png")
